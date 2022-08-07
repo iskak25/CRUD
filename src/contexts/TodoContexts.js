@@ -29,9 +29,7 @@ const TodoContextsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
 
   const getTodos = async () => {
-    const { data } = await axios(
-      "https://crud-react-it2dhh5rt-iskak25.vercel.app/todos"
-    );
+    const { data } = await axios("http://localhost:8000/todos");
     dispatch({
       type: "GET_TODOS",
       payload: data,
@@ -39,37 +37,25 @@ const TodoContextsProvider = ({ children }) => {
   };
 
   const addTask = async (newTask) => {
-    await axios.post(
-      "https://crud-react-it2dhh5rt-iskak25.vercel.app/todos",
-      newTask
-    );
+    await axios.post("http://localhost:8000/todos", newTask);
     getTodos();
   };
 
   const changeStatus = async (id) => {
-    let { data } = await axios.patch(
-      `https://crud-react-it2dhh5rt-iskak25.vercel.app/todos/${id}`
-    );
-    await axios.patch(
-      `https://crud-react-it2dhh5rt-iskak25.vercel.app/todos/${id}`,
-      {
-        status: !data.status,
-      }
-    );
+    let { data } = await axios.patch(`http://localhost:8000/todos/${id}`);
+    await axios.patch(`http://localhost:8000/todos/${id}`, {
+      status: !data.status,
+    });
     getTodos();
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(
-      `https://crud-react-it2dhh5rt-iskak25.vercel.app/todos/${id}`
-    );
+    await axios.delete(`http://localhost:8000/todos/${id}`);
     getTodos();
   };
 
   const editTodo = async (id) => {
-    let { data } = await axios(
-      `https://crud-react-it2dhh5rt-iskak25.vercel.app/todos/${id}`
-    );
+    let { data } = await axios(`http://localhost:8000/todos/${id}`);
     dispatch({
       type: "EDIT_TODO",
       payload: data,
@@ -77,10 +63,7 @@ const TodoContextsProvider = ({ children }) => {
   };
 
   const saveTask = async (newTask) => {
-    await axios.patch(
-      `https://crud-react-it2dhh5rt-iskak25.vercel.app/todos/${newTask.id}`,
-      newTask
-    );
+    await axios.patch(`http://localhost:8000/todos/${newTask.id}`, newTask);
     getTodos();
     console.log("sfd");
   };
