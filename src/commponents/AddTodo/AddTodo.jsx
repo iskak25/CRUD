@@ -14,6 +14,11 @@ const AddTodo = () => {
       task: inpValue,
       status: false,
     };
+    if (inpValue === "") {
+      alert("введите данные");
+      return;
+    }
+
     addTask(newObj);
     setInterval("");
   }

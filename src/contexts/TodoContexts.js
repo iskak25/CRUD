@@ -37,6 +37,9 @@ const TodoContextsProvider = ({ children }) => {
   };
 
   const addTask = async (newTask) => {
+    if (newTask === "") {
+      alert("введите данные");
+    }
     await axios.post("http://localhost:8000/todos", newTask);
     getTodos();
   };
